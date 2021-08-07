@@ -1,0 +1,10 @@
+version: "0.0.1"
+
+services:
+  missing-persons-psql:
+      image: postgres:13.3-alpine
+      environment: #Fill in the blanks
+        POSTGRES_DB:
+        POSTGRES_PASSWORD:
+      ports:
+        - "5432:5432"
