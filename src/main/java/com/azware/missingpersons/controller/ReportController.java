@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.azware.missingpersons.dto.CreateReportRequest;
+import com.azware.missingpersons.dto.FilterDTO;
 import com.azware.missingpersons.dto.GetReportResponse;
+import com.azware.missingpersons.dto.SpecificationRequest;
 import com.azware.missingpersons.model.ReportEntity;
 import com.azware.missingpersons.service.ReportService;
 import com.azware.missingpersons.util.ModelMapperExt;
@@ -37,9 +39,8 @@ public class ReportController {
 
     @GetMapping("/reports")
     @ResponseStatus(HttpStatus.OK)
-    public List<GetReportResponse> getReports(@RequestParam String filter, @RequestParam String sort, @RequestParam int page,
-            @RequestParam int size) {
-        List<ReportEntity> reportEntities = reportService.getReports(filter, sort, page, size);
+    public List<GetReportResponse> getReports(@RequestBody SpecificationRequest specificationRequest) {
+        List<ReportEntity> reportEntities = reportService.getReports(specificationRequest);
         List<GetReportResponse> reportDTOs = ModelMapperExt.mapList(modelMapper, reportEntities, GetReportResponse.class);
         return reportDTOs;
     }

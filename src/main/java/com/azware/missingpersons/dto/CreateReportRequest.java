@@ -2,6 +2,9 @@ package com.azware.missingpersons.dto;
 
 import java.time.Instant;
 
+import lombok.Data;
+
+@Data
 public class CreateReportRequest {
 
     private String missingPersonName;
