@@ -1,0 +1,10 @@
+version: "0.0.1"
+
+services:
+  missing-persons-psql:
+      image: postgres:13.3-alpine
+      environment:
+        POSTGRES_DB: missing_persons
+        POSTGRES_PASSWORD: azware
+      ports:
+        - "5432:5432"
