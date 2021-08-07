@@ -2,8 +2,6 @@
 spring:
     application:
         name: azware-missing-persons-service 
-    liquibase:
-        change-log: src/main/resources/db/changelog/db.changelog-master.yaml
     datasource: #Fill these fields in
         url: 
         username: 
