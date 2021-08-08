@@ -81,12 +81,4 @@ public class ReportController {
         reportService.updateReport(reportId, updateReportRequest);
     }
 
-    @ExceptionHandler({ MethodArgumentNotValidException.class, InvalidSearchCriteriaException.class,
-            InvalidDataAccessApiUsageException.class })
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public BadRequestResponse handleInvalidArgumentsExceptions(RuntimeException e) {
-        String message = "Bad Request";
-        return new BadRequestResponse(message, Arrays.toString(e.getStackTrace()));
-    }
-
 }
