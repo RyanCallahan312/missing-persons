@@ -1,12 +1,12 @@
 package com.azware.missingpersons.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import lombok.Data;
 
 import java.time.Instant;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,11 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Entity
+@Entity(name="sighting")
 public class SightingEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="sighting_id")
     private long id;
 
     @NotNull
@@ -32,7 +33,7 @@ public class SightingEntity {
 
     private String sightingLocation;
 
-    private String sightingImageURI;
+    private String sightingImageUri;
 
     private String additionalInfo;
 }

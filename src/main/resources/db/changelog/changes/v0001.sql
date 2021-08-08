@@ -1,13 +1,14 @@
 CREATE TABLE IF NOT EXISTS report (
     report_id INTEGER UNIQUE GENERATED ALWAYS AS IDENTITY,
-    missing_perons_name VARCHAR(100) NOT NULL,
+    missing_person_name VARCHAR(100) NOT NULL,
     reporter_name VARCHAR(100) NOT NULL,
     description VARCHAR(1000),
     report_time TIMESTAMP WITH TIME ZONE NOT NULL,
     last_seen_time TIMESTAMP WITH TIME ZONE NOT NULL,
     last_known_location VARCHAR(1000) NOT NULL,
     additional_info VARCHAR(1000) NOT NULL,
-    image_uri VARCHAR(100) NOT NULL
+    image_uri VARCHAR(100) NOT NULL,
+    is_found BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sighting (
