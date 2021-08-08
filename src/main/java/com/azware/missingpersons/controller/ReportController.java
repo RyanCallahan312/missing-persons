@@ -77,8 +77,8 @@ public class ReportController {
 
     @PutMapping("{reportId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateReport(@PathVariable @Valid UpdateReportRequest createReportRequest) {
-        reportService.updateReport(createReportRequest);
+    public void updateReport(@PathVariable long reportId, @RequestBody @Valid UpdateReportRequest updateReportRequest) {
+        reportService.updateReport(reportId, updateReportRequest);
     }
 
     @ExceptionHandler({ MethodArgumentNotValidException.class, InvalidSearchCriteriaException.class,

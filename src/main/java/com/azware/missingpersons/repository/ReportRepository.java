@@ -13,9 +13,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface ReportRepository extends JpaRepository<ReportEntity, Long>, JpaSpecificationExecutor<ReportEntity> {
 
     List<ReportEntity> findAll();
+
     List<ReportEntity> findAll(Specification<ReportEntity> spec);
+
     Page<ReportEntity> findAll(Specification<ReportEntity> spec, Pageable pageable);
+
     ReportEntity findOneById(long id);
 
 }
- 

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS sighting (
     sighting_time TIMESTAMP WITH TIME ZONE NOT NULL,
     sighting_location VARCHAR(1000) NOT NULL,
     image_uri VARCHAR(100) NOT NULL,
-    addional_info VARCHAR(1000) NOT NULL,
+    additional_info VARCHAR(1000) NOT NULL,
     CONSTRAINT fk_sighting
         FOREIGN KEY (report_id)
         REFERENCES report (report_id)
