@@ -1,0 +1,11 @@
+---
+spring:
+    application:
+        name: azware-missing-persons-service 
+    datasource: #Fill these fields in
+        url: 
+        username: 
+        password: 
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
