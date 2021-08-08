@@ -25,4 +25,6 @@ public class GetReportResponse {
 
     private String imageURI;
 
+    private boolean isFound; 
+
 }

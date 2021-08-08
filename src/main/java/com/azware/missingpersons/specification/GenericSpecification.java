@@ -29,7 +29,7 @@ public class GenericSpecification<T> implements Specification<T> {
             case EQUALS:
                 return criteriaBuilder.equal(root.get(searchCriteria.getKey()), arg);
             case LIKE:
-                return criteriaBuilder.like(root.get(searchCriteria.getKey()), arg.toString());
+                return criteriaBuilder.like(root.get(searchCriteria.getKey()), arg.toString() + "%");
             case IN:
                 return root.get(searchCriteria.getKey()).in(arguments);
             default:

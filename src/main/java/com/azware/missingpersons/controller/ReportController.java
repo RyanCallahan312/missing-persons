@@ -20,6 +20,7 @@ import com.azware.missingpersons.dto.BadRequestResponse;
 import com.azware.missingpersons.dto.CreateReportRequest;
 import com.azware.missingpersons.dto.GetReportResponse;
 import com.azware.missingpersons.dto.SpecificationRequest;
+import com.azware.missingpersons.dto.UpdateReportRequest;
 import com.azware.missingpersons.exception.InvalidSearchCriteriaException;
 import com.azware.missingpersons.model.ReportEntity;
 import com.azware.missingpersons.service.ReportService;
@@ -34,8 +35,8 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("api/v1/report")
 public class ReportController {
 
-    private ModelMapper modelMapper;
-    private ReportService reportService;
+    private final ModelMapper modelMapper;
+    private final ReportService reportService;
 
     @Autowired
     public ReportController(ModelMapper modelMapper, ReportService reportService) {
@@ -68,7 +69,7 @@ public class ReportController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GetReportResponse createReport(@RequestBody CreateReportRequest createReportRequest) {
+    public GetReportResponse createReport(@RequestBody @Valid CreateReportRequest createReportRequest) {
         ReportEntity reportEntity = reportService.createReport(createReportRequest);
         GetReportResponse reportDTO = modelMapper.map(reportEntity, GetReportResponse.class);
         return reportDTO;
@@ -76,13 +77,14 @@ public class ReportController {
 
     @PutMapping("{reportId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateReport(@PathVariable CreateReportRequest createReportRequest) {
+    public void updateReport(@PathVariable @Valid UpdateReportRequest createReportRequest) {
         reportService.updateReport(createReportRequest);
     }
 
-    @ExceptionHandler({ MethodArgumentNotValidException.class, InvalidSearchCriteriaException.class, InvalidDataAccessApiUsageException.class })
+    @ExceptionHandler({ MethodArgumentNotValidException.class, InvalidSearchCriteriaException.class,
+            InvalidDataAccessApiUsageException.class })
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public BadRequestResponse handleInvalidArgumentsExceptions(RuntimeException  e) {
+    public BadRequestResponse handleInvalidArgumentsExceptions(RuntimeException e) {
         String message = "Bad Request";
         return new BadRequestResponse(message, Arrays.toString(e.getStackTrace()));
     }

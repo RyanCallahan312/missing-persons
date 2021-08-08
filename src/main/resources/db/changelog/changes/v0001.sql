@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS report (
     last_seen_time TIMESTAMP WITH TIME ZONE NOT NULL,
     last_known_location VARCHAR(1000) NOT NULL,
     additional_info VARCHAR(1000) NOT NULL,
-    image_uri VARCHAR(100) NOT NULL
+    image_uri VARCHAR(100) NOT NULL,
+    is_found BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sighting (

@@ -1,24 +1,16 @@
-package com.azware.missingpersons.model;
+package com.azware.missingpersons.dto;
 
 import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Data
-@Entity(name="report")
-public class ReportEntity {
+public class UpdateReportRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="report_id")
-    private long id;
+    @NotNull
+    private String reportId;
 
     @NotNull
     private String missingPersonName;
@@ -32,13 +24,17 @@ public class ReportEntity {
     @NotNull
     private Instant reportTime;
     
+    @NotNull
     private Instant lastSeenTime;
 
+    @NotNull
     private String lastKnownLocation;
 
+    @NotNull
     private String additionalInfo;
 
-    private String imageUri;
+    @NotNull
+    private String imageURI;
 
     @NotNull
     private boolean isFound;
