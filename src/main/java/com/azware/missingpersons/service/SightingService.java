@@ -49,18 +49,10 @@ public class SightingService {
 
     public List<SightingEntity> getSightings(SpecificationRequest specificationRequest) {
 
-        Specification<SightingEntity> specification = SpecificationHelper.buildSpecificationFromSpecificationRequest(specificationRequest);
+        Specification<SightingEntity> specification = SpecificationHelper
+                .buildSpecificationFromSpecificationRequest(specificationRequest);
 
-        List<Order> sortOrders = new ArrayList<>();
-
-        for (SortDTO sortDTO : specificationRequest.getSorts()) {
-            Order sortOrder = new Order(Direction.valueOf(sortDTO.getDirection()), sortDTO.getFieldName());
-            sortOrders.add(sortOrder);
-        }
-        Sort sort = Sort.by(sortOrders);
-
-        Pageable page = PageRequest.of(specificationRequest.getPage().getPageNumber(),
-                specificationRequest.getPage().getPageSize(), sort);
+        Pageable page = SpecificationHelper.buildPageableFromSpecificationRequest(specificationRequest);
 
         Page<SightingEntity> sightings = sightingRepository.findAll(specification, page);
 

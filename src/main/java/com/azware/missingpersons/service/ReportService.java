@@ -44,19 +44,11 @@ public class ReportService {
     }
 
     public List<ReportEntity> getReports(SpecificationRequest specificationRequest) {
-        
-        Specification<ReportEntity> specification = SpecificationHelper.buildSpecificationFromSpecificationRequest(specificationRequest);
 
-        List<Order> sortOrders = new ArrayList<>();
+        Specification<ReportEntity> specification = SpecificationHelper
+                .buildSpecificationFromSpecificationRequest(specificationRequest);
 
-        for (SortDTO sortDTO : specificationRequest.getSorts()) {
-            Order sortOrder = new Order(Direction.valueOf(sortDTO.getDirection().toUpperCase(Locale.ENGLISH)), sortDTO.getFieldName());
-            sortOrders.add(sortOrder);
-        }
-        Sort sort = Sort.by(sortOrders);
-
-        Pageable page = PageRequest.of(specificationRequest.getPage().getPageNumber(),
-                specificationRequest.getPage().getPageSize(), sort);
+        Pageable page = SpecificationHelper.buildPageableFromSpecificationRequest(specificationRequest);
 
         Page<ReportEntity> reports = reportRepository.findAll(specification, page);
 
