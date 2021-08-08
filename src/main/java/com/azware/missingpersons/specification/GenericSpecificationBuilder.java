@@ -40,9 +40,11 @@ public class GenericSpecificationBuilder<T> {
             result = new GenericSpecification<>(params.get(0));
             for (int index = 1; index < params.size(); ++index) {
                 SearchCriteria searchCriteria = params.get(index);
-                result = searchCriteria.isOrOperation()
-                        ? Specification.where(result).or(new GenericSpecification<>(searchCriteria))
-                        : Specification.where(result).and(new GenericSpecification<>(searchCriteria));
+                if(searchCriteria.isOrOperation()){
+                    result = Specification.where(result).or(new GenericSpecification<>(searchCriteria));
+                }else{
+                    result = Specification.where(result).and(new GenericSpecification<>(searchCriteria));
+                }
             }
         }
         if (!specifications.isEmpty()) {

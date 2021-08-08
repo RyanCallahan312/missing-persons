@@ -89,7 +89,7 @@ public class ReportService {
     public ReportEntity createReport(CreateReportRequest createReportRequest) {
         ReportEntity reportEntity = modelMapper.map(createReportRequest, ReportEntity.class);
         reportEntity.setReportTime(Instant.now());
-        reportEntity.setIsFound(false);
+        reportEntity.setFound(false);
         return reportRepository.save(reportEntity);
     }
 
