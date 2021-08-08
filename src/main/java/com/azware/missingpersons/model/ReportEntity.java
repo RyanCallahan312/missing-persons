@@ -2,6 +2,7 @@ package com.azware.missingpersons.model;
 
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,11 +12,12 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name="report")
 public class ReportEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="report_id")
     private long id;
 
     @NotNull
@@ -36,6 +38,6 @@ public class ReportEntity {
 
     private String additionalInfo;
 
-    private String imageURI;
+    private String imageUri;
 
 }

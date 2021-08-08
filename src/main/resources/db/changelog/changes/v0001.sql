@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS report (
     report_id INTEGER UNIQUE GENERATED ALWAYS AS IDENTITY,
-    missing_perons_name VARCHAR(100) NOT NULL,
+    missing_person_name VARCHAR(100) NOT NULL,
     reporter_name VARCHAR(100) NOT NULL,
     description VARCHAR(1000),
     report_time TIMESTAMP WITH TIME ZONE NOT NULL,

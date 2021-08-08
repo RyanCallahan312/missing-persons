@@ -9,7 +9,7 @@ public class FilterDTO {
     
     private String fieldName;
     
-    private List<String> values;
+    private List<Object> values;
 
     private String operator;
 }

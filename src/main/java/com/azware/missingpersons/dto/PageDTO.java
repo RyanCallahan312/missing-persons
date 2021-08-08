@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class PageDTO {
 
-    private int page;
+    private int pageNumber;
     
-    private int size;
+    private int pageSize;
 
 }

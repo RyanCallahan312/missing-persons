@@ -7,5 +7,5 @@ public class SortDTO {
     
     private String fieldName;
 
-    private boolean ascending;
+    private String direction;
 }
