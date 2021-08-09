@@ -14,10 +14,10 @@ public class CreateReportRequest {
 
     @NotNull
     private String reporterName;
-    
+
     @NotNull
     private String description;
-    
+
     @NotNull
     private Instant lastSeenTime;
 
@@ -28,8 +28,8 @@ public class CreateReportRequest {
     private String additionalInfo;
 
     @NotNull
-    private String imageURI;
-    
+    private String imageUri;
+
     @NotNull
     private boolean isFound;
 

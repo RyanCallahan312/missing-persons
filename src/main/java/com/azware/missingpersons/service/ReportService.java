@@ -6,14 +6,11 @@ import java.util.List;
 import java.util.Locale;
 
 import com.azware.missingpersons.dto.CreateReportRequest;
-import com.azware.missingpersons.dto.FilterDTO;
 import com.azware.missingpersons.dto.SortDTO;
 import com.azware.missingpersons.dto.SpecificationRequest;
 import com.azware.missingpersons.dto.UpdateReportRequest;
-import com.azware.missingpersons.exception.InvalidSearchCriteriaException;
 import com.azware.missingpersons.model.ReportEntity;
-import com.azware.missingpersons.specification.GenericSpecificationBuilder;
-import com.azware.missingpersons.constant.SearchOperation;
+import com.azware.missingpersons.specification.SpecificationHelper;
 import com.azware.missingpersons.repository.ReportRepository;
 
 import org.modelmapper.ModelMapper;
@@ -39,7 +36,8 @@ public class ReportService {
     private final TransactionTemplate transactionTemplate;
 
     @Autowired
-    public ReportService(ModelMapper modelMapper, ReportRepository reportRepository, PlatformTransactionManager transactionManager) {
+    public ReportService(ModelMapper modelMapper, ReportRepository reportRepository,
+            PlatformTransactionManager transactionManager) {
         this.modelMapper = modelMapper;
         this.reportRepository = reportRepository;
         this.transactionTemplate = new TransactionTemplate(transactionManager);
@@ -47,31 +45,10 @@ public class ReportService {
 
     public List<ReportEntity> getReports(SpecificationRequest specificationRequest) {
 
-        GenericSpecificationBuilder<ReportEntity> specificationBuilder = new GenericSpecificationBuilder<>();
+        Specification<ReportEntity> specification = SpecificationHelper
+                .buildSpecificationFromSpecificationRequest(specificationRequest);
 
-        for (FilterDTO filterDTO : specificationRequest.getFilters()) {
-
-            SearchOperation searchOperation = SearchOperation
-                    .forName(filterDTO.getOperator().toUpperCase(Locale.ENGLISH));
-            if (searchOperation == null) {
-                throw new InvalidSearchCriteriaException("Invalid Search Operation");
-            }
-
-            specificationBuilder.with(filterDTO.getFieldName(), searchOperation,
-                    specificationRequest.isFiltersOrOperation(), filterDTO.getValues());
-        }
-        Specification<ReportEntity> specification = specificationBuilder.build();
-
-        List<Order> sortOrders = new ArrayList<>();
-
-        for (SortDTO sortDTO : specificationRequest.getSorts()) {
-            Order sortOrder = new Order(Direction.valueOf(sortDTO.getDirection()), sortDTO.getFieldName());
-            sortOrders.add(sortOrder);
-        }
-        Sort sort = Sort.by(sortOrders);
-
-        Pageable page = PageRequest.of(specificationRequest.getPage().getPageNumber(),
-                specificationRequest.getPage().getPageSize(), sort);
+        Pageable page = SpecificationHelper.buildPageableFromSpecificationRequest(specificationRequest);
 
         Page<ReportEntity> reports = reportRepository.findAll(specification, page);
 
@@ -93,8 +70,9 @@ public class ReportService {
         return reportRepository.save(reportEntity);
     }
 
-    public void updateReport(UpdateReportRequest createReportRequest) {
-        ReportEntity reportEntity = modelMapper.map(createReportRequest, ReportEntity.class);
+    public void updateReport(long reportId, UpdateReportRequest updateReportRequest) {
+        ReportEntity reportEntity = modelMapper.map(updateReportRequest, ReportEntity.class);
+        reportEntity.setId(reportId);
         transactionTemplate.execute(status -> reportRepository.save(reportEntity));
     }
 

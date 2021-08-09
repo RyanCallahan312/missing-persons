@@ -77,16 +77,8 @@ public class ReportController {
 
     @PutMapping("{reportId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateReport(@PathVariable @Valid UpdateReportRequest createReportRequest) {
-        reportService.updateReport(createReportRequest);
-    }
-
-    @ExceptionHandler({ MethodArgumentNotValidException.class, InvalidSearchCriteriaException.class,
-            InvalidDataAccessApiUsageException.class })
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public BadRequestResponse handleInvalidArgumentsExceptions(RuntimeException e) {
-        String message = "Bad Request";
-        return new BadRequestResponse(message, Arrays.toString(e.getStackTrace()));
+    public void updateReport(@PathVariable long reportId, @RequestBody @Valid UpdateReportRequest updateReportRequest) {
+        reportService.updateReport(reportId, updateReportRequest);
     }
 
 }

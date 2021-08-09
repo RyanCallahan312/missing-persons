@@ -10,20 +10,14 @@ import lombok.Data;
 public class UpdateReportRequest {
 
     @NotNull
-    private String reportId;
-
-    @NotNull
     private String missingPersonName;
 
     @NotNull
     private String reporterName;
-    
+
     @NotNull
     private String description;
 
-    @NotNull
-    private Instant reportTime;
-    
     @NotNull
     private Instant lastSeenTime;
 
@@ -34,7 +28,7 @@ public class UpdateReportRequest {
     private String additionalInfo;
 
     @NotNull
-    private String imageURI;
+    private String imageUri;
 
     @NotNull
     private boolean isFound;

@@ -2,6 +2,7 @@ package com.azware.missingpersons.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 
 import lombok.Data;
 
@@ -15,25 +16,27 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Entity(name="sighting")
+@Entity(name = "sighting")
 public class SightingEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="sighting_id")
+    @Column(name = "sighting_id")
     private long id;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="report_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "report_id", referencedColumnName = "report_id",  nullable = false)
     private ReportEntity report;
 
     @NotNull
     private Instant sightingTime;
 
+    @NotNull
     private String sightingLocation;
 
-    private String sightingImageUri;
+    @NotNull
+    private String imageUri;
 
+    @NotNull
     private String additionalInfo;
 }
