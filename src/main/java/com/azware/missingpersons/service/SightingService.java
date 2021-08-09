@@ -85,9 +85,13 @@ public class SightingService {
     }
 
     public void updateSighting(long sightingId, UpdateSightingRequest updateSightingRequest) {
-        SightingEntity sightingEntity = modelMapper.map(updateSightingRequest, SightingEntity.class);
-        sightingEntity.setId(sightingId);
-        transactionTemplate.execute(status -> sightingRepository.save(sightingEntity));
+        SightingEntity currentSightingEntity = sightingRepository.findOneById(sightingId);
+
+        SightingEntity updatedSightingEntity = modelMapper.map(updateSightingRequest, SightingEntity.class);
+        updatedSightingEntity.setId(sightingId);
+        updatedSightingEntity.setReport(currentSightingEntity.getReport());
+
+        transactionTemplate.execute(status -> sightingRepository.save(updatedSightingEntity));
     }
 
     public List<SightingEntity> getMostRecentSightings() {

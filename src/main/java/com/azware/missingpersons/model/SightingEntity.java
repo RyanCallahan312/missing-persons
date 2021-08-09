@@ -34,7 +34,9 @@ public class SightingEntity {
     @NotNull
     private String sightingLocation;
 
+    @NotNull
     private String imageUri;
 
+    @NotNull
     private String additionalInfo;
 }

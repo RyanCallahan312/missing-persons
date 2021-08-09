@@ -35,12 +35,16 @@ public class ReportEntity {
     @NotNull
     private Instant reportTime;
 
+    @NotNull
     private Instant lastSeenTime;
 
+    @NotNull
     private String lastKnownLocation;
 
+    @NotNull
     private String additionalInfo;
 
+    @NotNull
     private String imageUri;
 
     @NotNull
