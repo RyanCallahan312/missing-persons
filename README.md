@@ -24,3 +24,4 @@ the two files are found at `src/main/resources/docker/docker-compose.yml.example
 
 After the example files are modified `docker-compose up` in `src/main/resources/docker/` to start the app
 
+Alternatively you could modify the example files then run `docker build -t missing-persons:0.1.0 -f ./src/main/resources/docker/Dockerfile . && cd src/main/resources/docker &&  docker-compose up -d` from the root directory of the project
