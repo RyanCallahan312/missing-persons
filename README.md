@@ -12,7 +12,7 @@ Migrations managed by liquibase and db scripts are written for postgresql
 ___
 ## How to run
 
-To run it first build the docker image for the spring app with `docker build -t missing-persons:0.1.0 -f ./src/main/resources/docker/Dockerfile .`
+To run it first build the docker image for the spring app with `docker build -t missing-persons:0.1.0 -f ./src/main/resources/docker/Dockerfile .` from the root of the project
 
 To avoid secrets being leaked template files with the .example extenion have been created in place of the files with secrets. Simply removing the .example at the end of the files should give you a working app
 
