@@ -1,4 +1,4 @@
-### Missing Persons Code Sample
+# Missing Persons Code Sample
 ___
 ## App info
 
@@ -10,6 +10,10 @@ Api docs are created via Open API and the swagger UI which can be found when run
 
 Migrations managed by liquibase and db scripts are written for postgresql
 ___
+
+
+# ***When cloning the repo make sure your machine does not change the line endings. It will break the gradle wrapper if the line endings are CR+LF***
+
 ## How to run
 
 To run it first build the docker image for the spring app with `docker build -t missing-persons:0.1.0 -f ./src/main/resources/docker/Dockerfile .` from the root of the project
