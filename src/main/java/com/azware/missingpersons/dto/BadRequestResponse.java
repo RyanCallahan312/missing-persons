@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SortDTO {
+public class BadRequestResponse {
 
-    private String fieldName;
+    private String message;
 
-    private String direction;
+    private String stackTrace;
+
 }
