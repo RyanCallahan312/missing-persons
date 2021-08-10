@@ -95,6 +95,10 @@ public class SightingService {
     public void updateSighting(long sightingId, UpdateSightingRequest updateSightingRequest) {
         SightingEntity currentSightingEntity = sightingRepository.findOneById(sightingId);
 
+        if (currentSightingEntity == null) {
+            throw new IllegalArgumentException("Invalid Sighting id");
+        }
+
         SightingEntity updatedSightingEntity = modelMapper.map(updateSightingRequest, SightingEntity.class);
         updatedSightingEntity.setId(sightingId);
         updatedSightingEntity.setReport(currentSightingEntity.getReport());
