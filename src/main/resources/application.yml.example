@@ -3,9 +3,9 @@ spring:
     application:
         name: azware-missing-persons-service 
     datasource: #Fill these fields in
-        url: 
-        username: 
-        password: 
+        url: jdbc:postgresql://missing-persons-psql:5432/missing_persons
+        username: postgres
+        password: postgres
         driver-class-name: org.postgresql.Driver
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
