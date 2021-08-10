@@ -6,7 +6,7 @@ Running Spring 2.5.3 and Java 16
 
 Builds with gradle and runs in a docker container
 
-Api docs are created via Open API and the swagger UI which can be found when running locally at: http://localhost:{Port defined in docker-compose.yaml}/swagger-ui.html
+Api docs are created via Open API and the swagger UI which can be found when running locally at: `http://localhost:{Port defined in docker-compose.yaml}/swagger-ui.html`
 
 Migrations managed by liquibase and db scripts are written for postgresql
 ___
