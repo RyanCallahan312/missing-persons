@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.azware.missingpersons.context.RequestContext;
 import com.azware.missingpersons.dto.CreateSightingRequest;
 import com.azware.missingpersons.dto.PageDTO;
 import com.azware.missingpersons.dto.SortDTO;
@@ -13,6 +14,8 @@ import com.azware.missingpersons.model.ReportEntity;
 import com.azware.missingpersons.model.SightingEntity;
 import com.azware.missingpersons.repository.SightingRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +23,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -30,6 +32,10 @@ import com.azware.missingpersons.specification.SpecificationHelper;
 
 @Service
 public class SightingService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SightingService.class);
+    private final RequestContext requestContext;
+
     private final ModelMapper modelMapper;
 
     private final SightingRepository sightingRepository;
@@ -40,11 +46,12 @@ public class SightingService {
 
     @Autowired
     public SightingService(ModelMapper modelMapper, SightingRepository sightingRepository,
-            PlatformTransactionManager transactionManager, ReportService reportService) {
+            PlatformTransactionManager transactionManager, ReportService reportService, RequestContext requestContext) {
         this.modelMapper = modelMapper;
         this.sightingRepository = sightingRepository;
         this.transactionTemplate = new TransactionTemplate(transactionManager);
         this.reportService = reportService;
+        this.requestContext = requestContext;
     }
 
     public List<SightingEntity> getSightings(SpecificationRequest specificationRequest) {
@@ -81,6 +88,7 @@ public class SightingService {
         SightingEntity sightingEntity = modelMapper.map(createSightingRequest, SightingEntity.class);
         sightingEntity.setReport(report);
 
+        logger.info("Saving new sighting entity; Correlation ID: {}", this.requestContext.getCorrelationId());
         return sightingRepository.save(sightingEntity);
     }
 
@@ -91,6 +99,7 @@ public class SightingService {
         updatedSightingEntity.setId(sightingId);
         updatedSightingEntity.setReport(currentSightingEntity.getReport());
 
+        logger.info("Updating sighting entity with sighting id: {}; Correlation ID: {}",sightingId,  this.requestContext.getCorrelationId());
         transactionTemplate.execute(status -> sightingRepository.save(updatedSightingEntity));
     }
 

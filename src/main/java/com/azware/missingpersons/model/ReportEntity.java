@@ -50,7 +50,7 @@ public class ReportEntity {
     @NotNull
     private boolean isFound;
 
-    @OneToMany(mappedBy="report", cascade=CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="report", cascade=CascadeType.ALL)
     private Set<SightingEntity> sightings;
 
 }
