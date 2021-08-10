@@ -72,6 +72,9 @@ public class ReportService {
     }
 
     public void updateReport(long reportId, UpdateReportRequest updateReportRequest) {
+        if (this.getReport(reportId) == null) {
+            throw new IllegalArgumentException("Report with id " + reportId + " does not exist");
+        }
         ReportEntity reportEntity = modelMapper.map(updateReportRequest, ReportEntity.class);
         reportEntity.setId(reportId);
         logger.info("Updating report entity with id: {}; Correlation ID: {}",reportId, this.requestContext.getCorrelationId());
