@@ -23,7 +23,7 @@ class ModelMapperExtTest {
     }
 
     @Test
-    void mapList_ShouldTransferFieldValues_WhenMappingEntityToDTO() {
+    void mapList_ShouldTransferFieldValues() {
         ReportEntity entity1 = new ReportEntity();
         entity1.setId(1L);
         entity1.setMissingPersonName("azware");
